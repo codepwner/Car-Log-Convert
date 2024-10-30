@@ -1,0 +1,425 @@
+011: type=mrmacan
+   : name[type,8] value[mrmacan,0,0.000000]
+012: ; STFT (%) | LTFT In Use (%) | LTFT Idle (%) | LTFT Cruise (%)
+013: paramname=RAX_A
+   : name[paramname,16] value[RAX_A,0,0.000000]
+014: paramid=0x8051AC
+   : name[paramid,17] value[0x8051AC,8409516,0.000000]
+015: databits=32
+   : name[databits,22] value[32,32,32.000000]
+016: sampgroup=3
+   : name[sampgroup,27] value[3,3,3.000000]
+017: ; Load | Rear O2 (AFR) | IPW (ms) | AFR Map (AFR)
+018: paramname=RAX_B
+   : name[paramname,16] value[RAX_B,0,0.000000]
+019: paramid=0x8051A8
+   : name[paramid,17] value[0x8051A8,8409512,0.000000]
+020: databits=32
+   : name[databits,22] value[32,32,32.000000]
+021: ; Load Timing | Timing Advance (deg) | Knock Sum | RPM
+022: paramname=RAX_C
+   : name[paramname,16] value[RAX_C,0,0.000000]
+023: paramid=0x8051B0
+   : name[paramid,17] value[0x8051B0,8409520,0.000000]
+024: databits=32
+   : name[databits,22] value[32,32,32.000000]
+025: ; 
+026: paramname=RAX_D
+   : name[paramname,16] value[RAX_D,0,0.000000]
+027: paramid=0x8051B4
+   : name[paramid,17] value[0x8051B4,8409524,0.000000]
+028: databits=32
+   : name[databits,22] value[32,32,32.000000]
+029: sampgroup=2
+   : name[sampgroup,27] value[2,2,2.000000]
+030: ; 
+031: paramname=RAX_E
+   : name[paramname,16] value[RAX_E,0,0.000000]
+032: paramid=0x8051B8
+   : name[paramid,17] value[0x8051B8,8409528,0.000000]
+033: databits=32
+   : name[databits,22] value[32,32,32.000000]
+034: sampgroup=2
+   : name[sampgroup,27] value[2,2,2.000000]
+035: ; 
+036: paramname=RAX_F
+   : name[paramname,16] value[RAX_F,0,0.000000]
+037: paramid=0x8051BC
+   : name[paramid,17] value[0x8051BC,8409532,0.000000]
+038: databits=32
+   : name[databits,22] value[32,32,32.000000]
+039: sampgroup=3
+   : name[sampgroup,27] value[3,3,3.000000]
+040: ; 
+041: paramname=RAX_G
+   : name[paramname,16] value[RAX_G,0,0.000000]
+042: paramid=0x8051C0
+   : name[paramid,17] value[0x8051C0,8409536,0.000000]
+043: databits=32
+   : name[databits,22] value[32,32,32.000000]
+044: sampgroup=3
+   : name[sampgroup,27] value[3,3,3.000000]
+045: ; 
+046: paramname=RAX_H
+   : name[paramname,16] value[RAX_H,0,0.000000]
+047: paramid=0x8051C4
+   : name[paramid,17] value[0x8051C4,8409540,0.000000]
+048: databits=32
+   : name[databits,22] value[32,32,32.000000]
+049: paramname=Boost_Target
+   : name[paramname,16] value[Boost_Target,0,0.000000]
+050: paramid=0x808B77
+   : name[paramid,17] value[0x808B77,8424311,0.000000]
+051: scalingrpn=x,0.19347,*
+   : name[scalingrpn,18] value[x,0.19347,*,0,0.000000]
+052: paramname=Boost_Error
+   : name[paramname,16] value[Boost_Error,0,0.000000]
+053: paramid=0x808594
+   : name[paramid,17] value[0x808594,8422804,0.000000]
+054: databits=16	
+   : name[databits,22] value[16,16,16.000000]
+055: paramname=MAF_Frequency
+   : name[paramname,16] value[MAF_Frequency,0,0.000000]
+056: paramid=0x8087F3
+   : name[paramid,17] value[0x8087F3,8423411,0.000000]
+057: scalingrpn=x,6.25,*
+   : name[scalingrpn,18] value[x,6.25,*,0,0.000000]
+058: ;paramname=Knock_Flag
+059: ;paramid=0x808131
+060: ;paramname=Knock_Base
+061: ;paramid=0x80AA7F
+062: ;paramname=Knock_ADC_Processed
+063: ;paramid=0x808A69
+064: ;paramname=Fuel_Octane
+065: ;paramid=0x80459F
+066: ;scalingrpn=x,100,*,255,/
+067: ;*** Cruise Light ***
+068: ;paramname=CruiseLight
+069: ;paramid=0x8045C5
+070: ;----------------adc----------------
+071: type=adc 		; log from built in ADC channels
+   : name[type,8] value[adc,0,0.000000]
+072: paramname=AFR_O2_WB_ADC
+   : name[paramname,16] value[AFR_O2_WB_ADC,0,0.000000]
+073: paramid=12	    ; paramid is pin number on OBD connector
+   : name[paramid,17] value[12,12,12.000000]
+074: 			    ; valid pins are 8,12 and 16
+075: 			    ; values are pre-scaled to millivolts
+076:                 ; pin 12 is the tip of the stero jack 
+077: scalingrpn=x,0.002375,*,7.3125,+    ; here we scale by AEM formula for ADC, sleeve is ground
+   : name[scalingrpn,18] value[x,0.002375,*,7.3125,+,0,0.000000]
+078: ;--------------------------------
+079: type=calc
+   : name[type,8] value[calc,0,0.000000]
+080:                
+081: paramname=LogEntryDate  ; Dummy entry - Designed to produce an EvoScan style format
+   : name[paramname,16] value[LogEntryDate,0,0.000000]
+082:                         ; that can be loaded into "Log and Power Graph" without (much)
+083: scalingrpn=0            ; reformatting.
+   : name[scalingrpn,18] value[0,0,0.000000]
+084: paramname=LogEntrySeconds  ; Dummy entry
+   : name[paramname,16] value[LogEntrySeconds,0,0.000000]
+085: scalingrpn=0
+   : name[scalingrpn,18] value[0,0,0.000000]
+086: paramname=LogNotes      ; Dummy entry
+   : name[paramname,16] value[LogNotes,0,0.000000]
+087: scalingrpn=0
+   : name[scalingrpn,18] value[0,0,0.000000]
+088: paramname=Custom        ; Dummy entry - EvoScan seems to need this at the end
+   : name[paramname,16] value[Custom,0,0.000000]
+089: scalingrpn=0
+   : name[scalingrpn,18] value[0,0,0.000000]
+090: ;-------------Triggers---------------
+091: ;
+092: ; Note that parameters must be previously defined
+093: ; before defining triggers using them.
+094: ;
+095: ; Triggers allow you to control when logging starts and stops.
+096: ; This example sets up triggers such that logging only occurs
+097: ; when the cruise control is on.
+098: ;
+099: ; Triggers consist of some evaluation of the form [trigparam] [condition] [value]
+100: ; and a resulting action which is done if the evaluation is true.
+101: ;paramname=CruiseLightBit
+102: ;paramid= 0x8045C5
+103: ;databits=1
+104: ;offsetbits=5
+105: ;isvisible=0
+106: ;priority=2
+107: ;conditionrpn = CruiseLightBit,1,==
+108: ;action = start
+109: ;conditionrpn = CruiseLightBit,0,==
+110: ;action = stop
+111: ;------------Replaced by RAX---------
+112: ; -- RAX A --
+113: ;paramname=FuelTrim_ST				
+114: ;paramid=0x8088B0
+115: ;scalingrpn=x,0.1953125,*,25,-
+116: ;paramname=FuelTrim_LT		
+117: ;paramid=0x8088C1
+118: ;scalingrpn=x,0.1953125,*,25,-
+119: ;paramname=FuelTrim_Idle				
+120: ;paramid=0x804573
+121: ;scalingrpn=x,0.1953125,*,25,-
+122: ;paramname=FuelTrim_Cruise				
+123: ;paramid=0x804575
+124: ;scalingrpn=x,0.1953125,*,25,-
+125: ; -- RAX B --
+126: ;paramname=AFR_Map		
+127: ;paramid=0x80890D
+128: ;scalingrpn=14.7,128,*,x,/
+129: ;paramname=Load				
+130: ;paramid=0x808784
+131: ;databits=16				
+132: ;scalingrpn=x,0.3125,*
+133: ;paramname=IPW				
+134: ;paramid=0x80AA88
+135: ;databits=16
+136: ;scalingrpn=x,0.001,*
+137: ; -- RAX C --
+138: ;paramname=RPM				
+139: ;paramid=0x80875C
+140: ;databits=16
+141: ;scalingrpn=x,3.90625,*
+142: ;paramname=KnockSum				
+143: ;paramid=0x808A63
+144: ;paramname=TimingAdv				
+145: ;paramid=0x808A1F
+146: ;scalingrpn=x,20,-
+147: ; -- RAX D --
+148: ;paramname=Baro				
+149: ;paramid=0x80AA4D
+150: ;scalingrpn=x,0.07251887,*
+151: ;paramname=IDC           ; Injector Pulse Width
+152: ;scalingrpn=IPW,RPM,*,1200,/
+153: ;paramname=Boost_Actual				
+154: ;paramid=0x80872E
+155: ;databits=16				
+156: ;scalingrpn=x,0.0483675,*,14.5,-
+157: ;paramname=WGDC_Active				
+158: ;paramid=0x808B6D
+159: ;scalingrpn=x,0.5,*
+160: ;paramname=MAF_Voltage
+161: ;paramid=0x808F78
+162: ;scalingrpn=x,1024,/,5,*
+163: ;databits=16
+164: ; -- RAX F --
+165: ;paramname=TPS				
+166: ;paramid=0x80870D
+167: ;scalingrpn=x,0.3921569,*
+168: ;paramname=Accelerator
+169: ;paramid=0x8095FD
+170: ;scalingrpn=x,32,-,129,*,255,/
+171: ;paramname=WGDC_Corr				
+172: ;paramid=0x808B6B
+173: ;scalingrpn=x,0.5,*,64,-
+174: ; -- RAX G --
+175: ;paramname=Speed				
+176: ;paramid=0x8087FF
+177: ;scalingrpn=x,1.243,*
+178: ; - Maybe incorrect? -
+179: ;paramname=Battery
+180: ;paramid=0x8086EF
+181: ;scalingrpn=x,18.75,*,255,/
+182: ;paramname=Engine_Temp
+183: ;paramid=0x808653
+184: ;scalingrpn=x,40,- ; in celcius
+185: ; -- RAX H --
+186: ;paramname=MAF_Calc		
+187: ;paramid=0x808F88
+188: ;scalingrpn=x,100,*,16384,/
+189: ;databits=32
+190: ;paramname=MAP_Calc		
+191: ;paramid=0x8087CE
+192: ;scalingrpn=x,16384,/,100,*
+193: ;databits=16
+
+--- log config dump ---
+
+firmware version is: 1.17.4877
+the following general options are set:
+  * interpolate missing samples
+  * zero sample count at start of each file
+
+channel type: obd
+protocol id: 6
+baud: 500000
+mode23txaddrwidth: 3
+mode23txlenwidth: 1
+mode23rxaddrwidth: 0
+
+param name: RAX_A
+param id: 0x008051AC
+read width: 4 bytes
+data width: 32 bits
+data offset: 0 bits
+float: 0
+raw int: 1
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+sample group: 3
+sample interval: 3
+sample phase: 0
+scaling: x
+
+param name: RAX_B
+param id: 0x008051A8
+read width: 4 bytes
+data width: 32 bits
+data offset: 0 bits
+float: 0
+raw int: 1
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+scaling: x
+
+param name: RAX_C
+param id: 0x008051B0
+read width: 4 bytes
+data width: 32 bits
+data offset: 0 bits
+float: 0
+raw int: 1
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+scaling: x
+
+param name: RAX_D
+param id: 0x008051B4
+read width: 4 bytes
+data width: 32 bits
+data offset: 0 bits
+float: 0
+raw int: 1
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+sample group: 2
+sample interval: 2
+sample phase: 0
+scaling: x
+
+param name: RAX_E
+param id: 0x008051B8
+read width: 4 bytes
+data width: 32 bits
+data offset: 0 bits
+float: 0
+raw int: 1
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+sample group: 2
+sample interval: 2
+sample phase: 1
+scaling: x
+
+param name: RAX_F
+param id: 0x008051BC
+read width: 4 bytes
+data width: 32 bits
+data offset: 0 bits
+float: 0
+raw int: 1
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+sample group: 3
+sample interval: 3
+sample phase: 1
+scaling: x
+
+param name: RAX_G
+param id: 0x008051C0
+read width: 4 bytes
+data width: 32 bits
+data offset: 0 bits
+float: 0
+raw int: 1
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+sample group: 3
+sample interval: 3
+sample phase: 2
+scaling: x
+
+param name: RAX_H
+param id: 0x008051C4
+read width: 4 bytes
+data width: 32 bits
+data offset: 0 bits
+float: 0
+raw int: 1
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+scaling: x
+
+param name: Boost_Target
+param id: 0x00808B77
+read width: 1 bytes
+data width: 8 bits
+data offset: 0 bits
+float: 0
+raw int: 0
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+scaling: x,0.193470,*
+
+param name: Boost_Error
+param id: 0x00808594
+read width: 2 bytes
+data width: 16 bits
+data offset: 0 bits
+float: 0
+raw int: 0
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+scaling: x
+
+param name: MAF_Frequency
+param id: 0x008087F3
+read width: 1 bytes
+data width: 8 bits
+data offset: 0 bits
+float: 0
+raw int: 0
+signed int: 0
+sign/magnitude int: 0
+mode: 0x23
+scaling: x,6.250000,*
+
+channel type: adc
+
+param name: AFR_O2_WB_ADC
+param id: 0x0000000C
+scaling: x,0.002375,*,7.312500,+
+
+channel type: calc
+
+param name: LogEntryDate
+scaling: 0.000000
+
+param name: LogEntrySeconds
+scaling: 0.000000
+
+param name: LogNotes
+scaling: 0.000000
+
+param name: Custom
+scaling: 0.000000
+
+
+--- storage info ---
+log channels: 3
+log parameters: 16
+log stringlist: 164 chars
+log floatlist: 5 floats
+5 obd requests and 40 bytes of payload per cycle (worst case), taking 75000us per cycle (55000us is fastest possible)
+logging interval will be 75000us

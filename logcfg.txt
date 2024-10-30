@@ -1,0 +1,249 @@
+; sample logging configuration file for openport 2.0
+; must be named logcfg.txt and be placed in the root directory of the
+; microSD card inserted in the openport in order to work
+
+; this sample logs using the KWP2000 ReadMemoryAddress command over the ISO15765, which works
+; for CAN based mitsubishis that have had their ROMs modified to allow the use of this command.
+; this command is also known as "mode23" on some forums. since this command reads directly from 
+; ECU memory, the paramid addresses used are different for different ROM versions. the following 
+; example is for the USDM EVO X ROMs in the 526800xx series.
+
+;----------------mrmacan evox----------------
+; log channel settings
+type=mrmacan
+
+; STFT (%) | LTFT In Use (%) | LTFT Idle (%) | LTFT Cruise (%)
+paramname=RAX_A
+paramid=0x8051AC
+databits=32
+sampgroup=3
+
+; Load | Rear O2 (AFR) | IPW (ms) | AFR Map (AFR)
+paramname=RAX_B
+paramid=0x8051A8
+databits=32
+
+; Load Timing | Timing Advance (deg) | Knock Sum | RPM
+paramname=RAX_C
+paramid=0x8051B0
+databits=32
+
+; 
+paramname=RAX_D
+paramid=0x8051B4
+databits=32
+sampgroup=2
+
+; 
+paramname=RAX_E
+paramid=0x8051B8
+databits=32
+sampgroup=2
+
+; 
+paramname=RAX_F
+paramid=0x8051BC
+databits=32
+sampgroup=3
+
+; 
+paramname=RAX_G
+paramid=0x8051C0
+databits=32
+sampgroup=3
+
+; 
+paramname=RAX_H
+paramid=0x8051C4
+databits=32
+
+paramname=Boost_Target
+paramid=0x808B77
+scalingrpn=x,0.19347,*
+
+paramname=Boost_Error
+paramid=0x808594
+databits=16	
+
+paramname=MAF_Frequency
+paramid=0x8087F3
+scalingrpn=x,6.25,*
+
+;paramname=Knock_Flag
+;paramid=0x808131
+
+;paramname=Knock_Base
+;paramid=0x80AA7F
+
+;paramname=Knock_ADC_Processed
+;paramid=0x808A69
+
+;paramname=Fuel_Octane
+;paramid=0x80459F
+;scalingrpn=x,100,*,255,/
+
+;*** Cruise Light ***
+;paramname=CruiseLight
+;paramid=0x8045C5
+
+;----------------adc----------------
+type=adc 		; log from built in ADC channels
+
+paramname=AFR_O2_WB_ADC
+paramid=12	    ; paramid is pin number on OBD connector
+			    ; valid pins are 8,12 and 16
+			    ; values are pre-scaled to millivolts
+                ; pin 12 is the tip of the stero jack 
+scalingrpn=x,0.002375,*,7.3125,+    ; here we scale by AEM formula for ADC, sleeve is ground
+
+;--------------------------------
+
+type=calc
+               
+paramname=LogEntryDate  ; Dummy entry - Designed to produce an EvoScan style format
+                        ; that can be loaded into "Log and Power Graph" without (much)
+scalingrpn=0            ; reformatting.
+
+paramname=LogEntrySeconds  ; Dummy entry
+scalingrpn=0
+
+paramname=LogNotes      ; Dummy entry
+scalingrpn=0
+
+paramname=Custom        ; Dummy entry - EvoScan seems to need this at the end
+scalingrpn=0
+
+;-------------Triggers---------------
+;
+; Note that parameters must be previously defined
+; before defining triggers using them.
+;
+; Triggers allow you to control when logging starts and stops.
+; This example sets up triggers such that logging only occurs
+; when the cruise control is on.
+;
+; Triggers consist of some evaluation of the form [trigparam] [condition] [value]
+; and a resulting action which is done if the evaluation is true.
+;paramname=CruiseLightBit
+;paramid= 0x8045C5
+;databits=1
+;offsetbits=5
+;isvisible=0
+;priority=2
+;conditionrpn = CruiseLightBit,1,==
+;action = start
+;conditionrpn = CruiseLightBit,0,==
+;action = stop
+
+;------------Replaced by RAX---------
+; -- RAX A --
+
+;paramname=FuelTrim_ST				
+;paramid=0x8088B0
+;scalingrpn=x,0.1953125,*,25,-
+
+;paramname=FuelTrim_LT		
+;paramid=0x8088C1
+;scalingrpn=x,0.1953125,*,25,-
+
+;paramname=FuelTrim_Idle				
+;paramid=0x804573
+;scalingrpn=x,0.1953125,*,25,-
+
+;paramname=FuelTrim_Cruise				
+;paramid=0x804575
+;scalingrpn=x,0.1953125,*,25,-
+
+; -- RAX B --
+
+;paramname=AFR_Map		
+;paramid=0x80890D
+;scalingrpn=14.7,128,*,x,/
+
+;paramname=Load				
+;paramid=0x808784
+;databits=16				
+;scalingrpn=x,0.3125,*
+
+;paramname=IPW				
+;paramid=0x80AA88
+;databits=16
+;scalingrpn=x,0.001,*
+
+; -- RAX C --
+
+;paramname=RPM				
+;paramid=0x80875C
+;databits=16
+;scalingrpn=x,3.90625,*
+
+;paramname=KnockSum				
+;paramid=0x808A63
+
+;paramname=TimingAdv				
+;paramid=0x808A1F
+;scalingrpn=x,20,-
+
+; -- RAX D --
+
+;paramname=Baro				
+;paramid=0x80AA4D
+;scalingrpn=x,0.07251887,*
+
+;paramname=IDC           ; Injector Pulse Width
+;scalingrpn=IPW,RPM,*,1200,/
+
+;paramname=Boost_Actual				
+;paramid=0x80872E
+;databits=16				
+;scalingrpn=x,0.0483675,*,14.5,-
+
+;paramname=WGDC_Active				
+;paramid=0x808B6D
+;scalingrpn=x,0.5,*
+
+;paramname=MAF_Voltage
+;paramid=0x808F78
+;scalingrpn=x,1024,/,5,*
+;databits=16
+
+; -- RAX F --
+
+;paramname=TPS				
+;paramid=0x80870D
+;scalingrpn=x,0.3921569,*
+
+;paramname=Accelerator
+;paramid=0x8095FD
+;scalingrpn=x,32,-,129,*,255,/
+
+;paramname=WGDC_Corr				
+;paramid=0x808B6B
+;scalingrpn=x,0.5,*,64,-
+
+; -- RAX G --
+
+;paramname=Speed				
+;paramid=0x8087FF
+;scalingrpn=x,1.243,*
+
+; - Maybe incorrect? -
+;paramname=Battery
+;paramid=0x8086EF
+;scalingrpn=x,18.75,*,255,/
+
+;paramname=Engine_Temp
+;paramid=0x808653
+;scalingrpn=x,40,- ; in celcius
+
+; -- RAX H --
+
+;paramname=MAF_Calc		
+;paramid=0x808F88
+;scalingrpn=x,100,*,16384,/
+;databits=32
+
+;paramname=MAP_Calc		
+;paramid=0x8087CE
+;scalingrpn=x,16384,/,100,*
+;databits=16
